@@ -15,3 +15,7 @@
 1. 2016-02-01 \[**50**\] [windows server上 apache + php + MySQL + wordpress 配置](http://114.215.140.250/post/50.htm)
 1. 2016-02-09 \[**53**\] [OpenGL实用函数工具包GLUT在Visual Studio上的配置](http://114.215.140.250/post/53.htm)
 1. 2016-02-13 \[**56**\] [HDU ACM Steps](http://114.215.140.250/post/56.htm)
+1. 2016-02-20 \[**58**\] [我的第一个Python3 网络爬虫 百度百科爬虫](http://114.215.140.250/post/58.htm)
+1. 2016-02-29 \[**61**\] [HTTP 应答报文介绍](http://114.215.140.250/post/61.htm)
+1. 2016-02-29 \[**63**\] [Python3 urllib 笔记](http://114.215.140.250/post/63.htm)
+1. 2016-03-02 \[**65**\] [HDU ACM 1443 Joseph [数学题]](http://114.215.140.250/post/65.htm)
