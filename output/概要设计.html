@@ -1,0 +1,155 @@
+<meta charset="UTF-8">
+<div class="toc">
+<ul>
+<li><a href="#1">1. 前言</a><ul>
+<li><a href="#11">1.1 编写目的</a></li>
+<li><a href="#12">1.2 项目背景</a></li>
+<li><a href="#13">1.3 定义</a></li>
+<li><a href="#14">1.4 参考文献</a></li>
+</ul>
+</li>
+<li><a href="#2">2. 任务概述</a><ul>
+<li><a href="#21">2.1 目标</a></li>
+<li><a href="#22">2.2 运行环境</a></li>
+<li><a href="#23">2.3 开发环境</a></li>
+</ul>
+</li>
+<li><a href="#3">3. 产品功能</a><ul>
+<li><a href="#31">3.1 功能概述</a></li>
+<li><a href="#32">3.2 功能模块</a><ul>
+<li><a href="#321">3.2.1 主调度器</a></li>
+<li><a href="#322">3.2.2 排行榜</a></li>
+<li><a href="#323">3.2.3 卡片模块</a></li>
+<li><a href="#324">3.2.4 宝石模块</a></li>
+<li><a href="#325">3.2.5 能量模块</a></li>
+<li><a href="#326">3.2.6 关卡调度器</a></li>
+<li><a href="#327">3.2.7 时间控制器</a></li>
+<li><a href="#328">3.2.8 关卡集合</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="1">1. 前言<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<h2 id="11">1.1 编写目的<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<p>本文档是为了指导软件开发者，同时给本次的安卓游戏app开发起到一个大纲作用。
+通过规范软件的开发过程达到提高软件质量，降低维护成本的目的。同时也可以降低本软件开发难度，节省工作时间。</p>
+<h2 id="12">1.2 项目背景<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>项目委托单位：？？？</li>
+<li>项目开发单位：创新实践第四小组</li>
+<li>指导老师：邱洪君</li>
+</ul>
+<h2 id="13">1.3 定义<a class="headerlink" href="#13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>BUG：甲虫</li>
+</ul>
+<h2 id="14">1.4 参考文献<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Cocos2d-x 3.x 游戏开发之旅</li>
+</ul>
+<h1 id="2">2. 任务概述<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h2 id="21">2.1 目标<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<p>开发一款面向儿童的休闲类游戏，开发儿童的智力和反应能力，获取更大的用户群和用户粘性，最后实现盈利。</p>
+<h2 id="22">2.2 运行环境<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Android 5.0.1 及之前的版本</li>
+</ul>
+<h2 id="23">2.3 开发环境<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Cocos2d-x 3.10</li>
+<li>Visual Studio 2015</li>
+</ul>
+<h1 id="3">3. 产品功能<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
+<h2 id="31">3.1 功能概述<a class="headerlink" href="#31" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>本游戏由无限的小关卡构成，以追求在给定的时间内过更多的关卡为目的。
+在挑战每个小关卡之前都会给予一定的奖励时间，玩家需要在尽可能短的时间内通过点击和滑动达到关卡的要求从而过关。
+小关卡的种类是有限的，但是在游戏中不断循环出现。不会出现连续两关都是同一种关卡的现象。
+每10关构成一个循环，有一个Boss。在打败Boss之后玩家可以宝箱奖励。
+</pre></div>
+
+
+<p>下面为游戏的一些其他机制：
+ 1. 难度机制
+  - 越后面的关卡难度越大，难度体现在关卡需要重复完成的次数和关卡内需要操作物品的数量。
+ 2. 宝石机制
+  - 宝石为游戏中的通用货币。通过击败Boss开宝箱有一定的几率获得宝石
+  - 宝石可以购买额外的宝箱、购买能量、复活等等
+  - *宝石可以用真实货币在游戏中购买
+ 3. 卡片机制
+  - 玩家可以从击败Boss的奖励中获得随机卡片奖励。
+  - 一张卡片对应某一种关卡。
+  - 卡片可以通过增加额外的奖励时间降低特定关卡的过关难度。
+  - 两张相同的卡片可以合成一张更高级的同类卡片。
+ 4. 能量机制
+  - 玩家需要花费1点能量才能进行一个关卡。
+  - 能量每一段时间自动增加1点。
+  - 能量有一个上限值，当达到上限值时，能量不再随着时间增加。
+  - 当能量耗尽，玩家将无法进行游戏，从而达到防沉迷的效果。
+  - 可以通过宝石购买能量。</p>
+<h2 id="32">3.2 功能模块<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
+<p><img alt="模块" src="http://114.215.140.250/wp-content/uploads/2016/03/Innovation-design.png" /></p>
+<h3 id="321">3.2.1 主调度器<a class="headerlink" href="#321" title="Permanent link">&para;</a></h3>
+<p>管理主菜单，管理调度各子模块。</p>
+<h3 id="322">3.2.2 排行榜<a class="headerlink" href="#322" title="Permanent link">&para;</a></h3>
+<p>包括本地与联网排行榜
+本地排行榜可以查看本地玩家的最高分。
+联网排行榜可以浏览互联网上不同用户的得分包括了单关得分和总得分，并将用户间的得分进行比较，得分高者名次靠前。
+主要功能有：</p>
+<ul>
+<li>记录分数</li>
+<li>将记录排名</li>
+</ul>
+<h3 id="323">3.2.3 卡片模块<a class="headerlink" href="#323" title="Permanent link">&para;</a></h3>
+<p>本模块用于管理卡片，并且根据卡片将奖励时间信息传递给关卡调度器
+主要功能有：</p>
+<ul>
+<li>卡片奖励信息传递</li>
+<li>卡片存储</li>
+<li>卡片合成</li>
+<li>*卡片兑换</li>
+<li>*卡片分解</li>
+</ul>
+<h3 id="324">3.2.4 宝石模块<a class="headerlink" href="#324" title="Permanent link">&para;</a></h3>
+<p>本模块用于管理宝石，主要功能有：</p>
+<ul>
+<li>宝石存储</li>
+<li>宝石消费</li>
+</ul>
+<h3 id="325">3.2.5 能量模块<a class="headerlink" href="#325" title="Permanent link">&para;</a></h3>
+<p>本模块管理用户的能量，主要功能有：</p>
+<ul>
+<li>每过一段时间获得能量</li>
+<li>每关消耗能量</li>
+<li>奖励能量的获取</li>
+</ul>
+<h3 id="326">3.2.6 关卡调度器<a class="headerlink" href="#326" title="Permanent link">&para;</a></h3>
+<p>本模块控制关卡的调度，主要功能有：</p>
+<ul>
+<li>随机生成关卡</li>
+<li>关卡切换</li>
+<li>关卡难度控制</li>
+</ul>
+<h3 id="327">3.2.7 时间控制器<a class="headerlink" href="#327" title="Permanent link">&para;</a></h3>
+<p>本模块与关卡调度器、每个关卡协作，用于控制玩家的剩余时间。</p>
+<ul>
+<li>倒计时</li>
+<li>增加奖励时间</li>
+<li>传递时间信息</li>
+</ul>
+<h3 id="328">3.2.8 关卡集合<a class="headerlink" href="#328" title="Permanent link">&para;</a></h3>
+<p>本模块集合中有数个小关卡模块。
+包含的关卡类型：</p>
+<ul>
+<li>普通关卡</li>
+<li>特殊关卡</li>
+<li>Boss关卡</li>
+</ul>
+<p>本模块用于每个关卡内的控制，主要功能有：</p>
+<ul>
+<li>关卡随机生成</li>
+<li>关卡难度调整</li>
+<li>关卡通过判断</li>
+<li>关卡操作</li>
+</ul>
