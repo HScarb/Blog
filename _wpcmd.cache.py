@@ -1,205 +1,216 @@
 {
+'cachefile': 'I:\\WS-Blog\\_wpcmd.cache.py',
 'post_tag': {
-'http': {
-'taxonomy': 'post_tag',
-'count': 1,
+'csharp': {
 'parent': '0',
-'name': 'http',
+'group': '0',
 'description': '',
-'slug': 'http',
-'group': '0',
-'taxonomy_id': '28',
-'id': '28'
-},
-'cocos2d-x': {
 'taxonomy': 'post_tag',
-'count': 0,
-'parent': '0',
-'name': 'cocos2d-x',
-'description': '',
-'slug': 'cocos2d-x',
-'group': '0',
-'taxonomy_id': '13',
-'id': '13'
-},
-'graph': {
-'taxonomy': 'post_tag',
-'count': 1,
-'parent': '0',
-'name': '图形学',
-'description': '计算机图形学',
-'slug': 'graph',
-'group': '0',
-'taxonomy_id': '21',
-'id': '21'
+'name': 'C#',
+'id': '12',
+'taxonomy_id': '12',
+'slug': 'csharp',
+'count': 0
 },
 'blog': {
-'taxonomy': 'post_tag',
-'count': 1,
 'parent': '0',
-'name': '博客',
+'group': '0',
 'description': '关于博客',
-'slug': 'blog',
-'group': '0',
+'taxonomy': 'post_tag',
+'name': '博客',
+'id': '23',
 'taxonomy_id': '23',
-'id': '23'
+'slug': 'blog',
+'count': 1
 },
-'md': {
-'taxonomy': 'post_tag',
-'count': 2,
+'cocos2d-x': {
 'parent': '0',
-'name': 'MarkDown',
-'description': 'MarkDown 文本语言',
-'slug': 'md',
 'group': '0',
-'taxonomy_id': '18',
-'id': '18'
-},
-'csharp': {
-'taxonomy': 'post_tag',
-'count': 0,
-'parent': '0',
-'name': 'C#',
 'description': '',
-'slug': 'csharp',
-'group': '0',
-'taxonomy_id': '12',
-'id': '12'
-},
-'algorithm': {
 'taxonomy': 'post_tag',
-'count': 0,
-'parent': '0',
-'name': '算法',
-'description': '',
-'slug': 'algorithm',
-'group': '0',
-'taxonomy_id': '16',
-'id': '16'
-},
-'git': {
-'taxonomy': 'post_tag',
-'count': 0,
-'parent': '0',
-'name': 'Git',
-'description': 'Git和Github相关',
-'slug': 'git',
-'group': '0',
-'taxonomy_id': '33',
-'id': '33'
-},
-'acm': {
-'taxonomy': 'post_tag',
-'count': 2,
-'parent': '0',
-'name': 'ACM',
-'description': 'hduacm',
-'slug': 'acm',
-'group': '0',
-'taxonomy_id': '17',
-'id': '17'
-},
-'crawler': {
-'taxonomy': 'post_tag',
-'count': 5,
-'parent': '0',
-'name': '爬虫',
-'description': '网络爬虫',
-'slug': 'crawler',
-'group': '0',
-'taxonomy_id': '27',
-'id': '27'
-},
-'cpp': {
-'taxonomy': 'post_tag',
-'count': 1,
-'parent': '0',
-'name': 'C++',
-'description': '',
-'slug': 'cpp',
-'group': '0',
-'taxonomy_id': '11',
-'id': '11'
-},
-'python': {
-'taxonomy': 'post_tag',
-'count': 5,
-'parent': '0',
-'name': 'python',
-'description': '',
-'slug': 'python',
-'group': '0',
-'taxonomy_id': '14',
-'id': '14'
+'name': 'cocos2d-x',
+'id': '13',
+'taxonomy_id': '13',
+'slug': 'cocos2d-x',
+'count': 0
 },
 'ds': {
-'taxonomy': 'post_tag',
-'count': 0,
 'parent': '0',
-'name': '数据结构',
-'description': '',
-'slug': 'ds',
 'group': '0',
+'description': '',
+'taxonomy': 'post_tag',
+'name': '数据结构',
+'id': '15',
 'taxonomy_id': '15',
-'id': '15'
+'slug': 'ds',
+'count': 0
+},
+'cpp': {
+'parent': '0',
+'group': '0',
+'description': '',
+'taxonomy': 'post_tag',
+'name': 'C++',
+'id': '11',
+'taxonomy_id': '11',
+'slug': 'cpp',
+'count': 1
+},
+'python': {
+'parent': '0',
+'group': '0',
+'description': '',
+'taxonomy': 'post_tag',
+'name': 'python',
+'id': '14',
+'taxonomy_id': '14',
+'slug': 'python',
+'count': 5
+},
+'game': {
+'parent': '0',
+'group': '0',
+'description': '游戏相关',
+'taxonomy': 'post_tag',
+'name': '游戏',
+'id': '34',
+'taxonomy_id': '34',
+'slug': 'game',
+'count': 1
+},
+'graph': {
+'parent': '0',
+'group': '0',
+'description': '计算机图形学',
+'taxonomy': 'post_tag',
+'name': '图形学',
+'id': '21',
+'taxonomy_id': '21',
+'slug': 'graph',
+'count': 1
+},
+'http': {
+'parent': '0',
+'group': '0',
+'description': '',
+'taxonomy': 'post_tag',
+'name': 'http',
+'id': '28',
+'taxonomy_id': '28',
+'slug': 'http',
+'count': 1
+},
+'git': {
+'parent': '0',
+'group': '0',
+'description': 'Git和Github相关',
+'taxonomy': 'post_tag',
+'name': 'Git',
+'id': '33',
+'taxonomy_id': '33',
+'slug': 'git',
+'count': 1
+},
+'crawler': {
+'parent': '0',
+'group': '0',
+'description': '网络爬虫',
+'taxonomy': 'post_tag',
+'name': '爬虫',
+'id': '27',
+'taxonomy_id': '27',
+'slug': 'crawler',
+'count': 5
+},
+'algorithm': {
+'parent': '0',
+'group': '0',
+'description': '',
+'taxonomy': 'post_tag',
+'name': '算法',
+'id': '16',
+'taxonomy_id': '16',
+'slug': 'algorithm',
+'count': 0
+},
+'acm': {
+'parent': '0',
+'group': '0',
+'description': 'hduacm',
+'taxonomy': 'post_tag',
+'name': 'ACM',
+'id': '17',
+'taxonomy_id': '17',
+'slug': 'acm',
+'count': 4
+},
+'md': {
+'parent': '0',
+'group': '0',
+'description': 'MarkDown 文本语言',
+'taxonomy': 'post_tag',
+'name': 'MarkDown',
+'id': '18',
+'taxonomy_id': '18',
+'slug': 'md',
+'count': 2
 }
 },
 'category': {
-'note': {
-'taxonomy': 'category',
-'count': 5,
+'exp': {
 'parent': '0',
-'name': '笔记',
-'description': '需要记一下的东西。可能是自己写的也可能是别处搜刮的。',
-'slug': 'note',
 'group': '0',
+'description': '自己捣鼓出来的心得，拿来分享。',
+'taxonomy': 'category',
+'name': '心得',
+'id': '32',
+'taxonomy_id': '32',
+'slug': 'exp',
+'count': 6
+},
+'note': {
+'parent': '0',
+'group': '0',
+'description': '需要记一下的东西。可能是自己写的也可能是别处搜刮的。',
+'taxonomy': 'category',
+'name': '笔记',
+'id': '31',
 'taxonomy_id': '31',
-'id': '31'
+'slug': 'note',
+'count': 6
 },
 'gadget': {
-'taxonomy': 'category',
-'count': 2,
 'parent': '0',
-'name': '小玩意',
+'group': '0',
 'description': '超小型的“项目”',
-'slug': 'gadget',
-'group': '0',
+'taxonomy': 'category',
+'name': '小玩意',
+'id': '30',
 'taxonomy_id': '30',
-'id': '30'
-},
-'uncategorized': {
-'taxonomy': 'category',
-'count': 2,
-'parent': '0',
-'name': '未分类',
-'description': '',
-'slug': 'uncategorized',
-'group': '0',
-'taxonomy_id': '1',
-'id': '1'
-},
-'exp': {
-'taxonomy': 'category',
-'count': 5,
-'parent': '0',
-'name': '心得',
-'description': '自己捣鼓出来的心得，拿来分享。',
-'slug': 'exp',
-'group': '0',
-'taxonomy_id': '32',
-'id': '32'
+'slug': 'gadget',
+'count': 2
 },
 'other': {
-'taxonomy': 'category',
-'count': 0,
 'parent': '0',
-'name': '其他',
-'description': '乱七八糟',
-'slug': 'other',
 'group': '0',
+'description': '乱七八糟',
+'taxonomy': 'category',
+'name': '其他',
+'id': '10',
 'taxonomy_id': '10',
-'id': '10'
-}
+'slug': 'other',
+'count': 1
 },
-'cachefile': 'I:\\WS-Blog\\_wpcmd.cache.py'
+'uncategorized': {
+'parent': '0',
+'group': '0',
+'description': '',
+'taxonomy': 'category',
+'name': '未分类',
+'id': '1',
+'taxonomy_id': '1',
+'slug': 'uncategorized',
+'count': 1
+}
+}
 }
