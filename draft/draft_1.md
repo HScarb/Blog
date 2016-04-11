@@ -40,5 +40,10 @@ I think my cultural story can be concentrating into two words: computer and game
 When I was a child, I developed a liking for computer games. 
 On the beginning, I am a game player. And I gradually turnning my self into a game maker.
 
+### 2.1 StarCraft
+On my first grade of primary school, my classmate lent me a game disk, which contains StarCraft.
+In summer holidaies, I played it a lot. This is the first contact with Billard games.
+
+
 ## 3. Character
 ## 4. Hobby
