@@ -44,6 +44,72 @@ On the beginning, I am a game player. And I gradually turnning my self into a ga
 On my first grade of primary school, my classmate lent me a game disk, which contains StarCraft.
 In summer holidaies, I played it a lot. This is the first contact with Billard games.
 
+### 2.2 WarCraft
+When I was about to graduate from primary school, WarCraft was porpular all over the country.
+Played it for sometimes, like I played Starcraft, I still could't beat the computer.
+So I turn to play some RPG('Role Play Games') in WarCraft.
+Once I had a brilliant idea, remake a StarCraft map into WarCraftIII. 
+I did make the map after much effort, and it quickly became very popular.
+This is my first success as a game maker.
+
+### 2.3 Blizzard
+After that, I played World of WarCraft, StarCraftII, Hearthstone, Diablo...... almost all of Blizzard games.
+I'm totally impressed by Blizzard and those great games and I became a fan of Blizzard.
+
+### 2.4 StarCraftII
+This is the game I play it until now. It is my favorite game. I've been playing it for years and reached a high level.
+As a sequel of StarCraft, SC2('StarCraftII') has a much better quality.
+When playing the game, you must one hundrad percent concentrate on it, or you will be defeated quickly.
+This time, I still made some success on map making. One of my map is still the seconed popular map over the country.
+Because of the success I made in map making, I decided to become a game maker in the future. This was in my senior high school.
+My final goal, is to establish a game company like Blizzard. 
+This is my dream.
+I know it is very far from me, but I just chasing it, step by step.
+
+### 2.5 Moblie Game
+When I got into college, I wanted to make some independent games. So I choiced mobile games.
+I am still groping on this path, which is harder to walk.
 
 ## 3. Character
+### 3.1 Enterprise
+This is a word I like. It comes from a movie Star Trek. In the movie, it is the name of a spaceship.
+I'd like to get closer to my dream, so I am enterprise. I cannot bear leisure or sit around.
+I want every day is fruitfull. But sometimes, I am lazy.
+It seems like I am a kind of utilitarian, but I think it is good to do the best of what I can.
+
+### 3.2 Introversion
+I'm a introverted guy, very introverted. 
+Programmers are commonly introverted person.
+I can spend a day even without saying one word.
+As time passes, I am ashamed of talk to strangers.
+I'm quiet and calm, probably good at listening and observing.
+I am always keep a low profile, I hate "zhuangB" which means showing off in front of public.
+
+### 3.3 Willful
+Or it can be called have good execution.
+I always do what I want to do. For example, it I start a project, nothing can stop me unitil I finally work it out.
+When I want to buy something, I will buy it without doubt, when I don't want to having class, I won't go.
+Because I know what is important for me and I believe I am right.
+In some cases, I have OCD('Obsessive-compulsive disorder'), but I think it helps me to finish things better.
+
 ## 4. Hobby
+### 4.1 StarCraftII
+StarCraftII, of course, is my hobby. I made a great achievement on this game.
+When playing it, I will feel sober. So it is a game whick refresh my mind.
+
+### 4.2 Basketball
+I played basketball a lot in middle school. But now, almost one year has passed since I last playd baskedball.
+Although I haven't play basketball for a long time, I positively regard NBA('National Basketball Association') games.
+NBA is also a part of my life.
+
+### 4.3 English
+Why English? I don't know either. I just come up with it. Maybe I write it just for please you.
+I don't like learning English in school, in classroom.
+But I think English is cool.
+I changed my system into English, and I watch videos with English subtitles. It's cool, isn't it?
+As a programmer, it is very important to learn English well. Only after that can I read documents in English.
+
+### 4.4 Coding
+I almost forget it. Coding is my hobby. I am very glad to make my hobby into an occupation.
+People may think coding is tired and boring. But for me it's very cool.
+I'd like first to become a game programmer,.
