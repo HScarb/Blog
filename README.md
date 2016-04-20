@@ -27,3 +27,6 @@
 1. 2016-03-17 \[**106**\] [HDU ACM 1222 Wolf and Rabbit](http://114.215.140.250/post/106.htm)
 1. 2016-03-28 \[**112**\] [Tap the Zergling 详细设计](http://114.215.140.250/post/112.htm)
 1. 2016-03-31 \[**117**\] [OpenGL 使用L-System绘制树](http://114.215.140.250/post/117.htm)
+1. 2016-04-06 \[**121**\] [OpenGL draw Bezier curve using De Casteljau 使用剖分算法绘制贝塞尔曲线](http://114.215.140.250/post/121.htm)
+1. 2016-04-01 \[**136**\] [My cultural story](http://114.215.140.250/post/136.htm)
+1. 2016-04-20 \[**141**\] [Fill boundary 4 connection](http://114.215.140.250/post/141.htm)
