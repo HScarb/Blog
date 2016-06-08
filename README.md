@@ -1,4 +1,4 @@
-[Scarb's Blog](http://114.215.140.250) 中的所有文章
+[Scarb's blog](http://114.215.140.250) 中的所有文章
 ==========
 本博客采用 [WPCMD](http://zengrong.net/wpcmd) 维护
 ----------
@@ -31,3 +31,6 @@
 1. 2016-04-01 \[**136**\] [My cultural story](http://114.215.140.250/post/136.htm)
 1. 2016-04-20 \[**141**\] [Fill boundary 4 connection](http://114.215.140.250/post/141.htm)
 1. 2016-04-25 \[**147**\] [使用JDBC简单操作数据库](http://114.215.140.250/post/147.htm)
+1. 2016-06-01 \[**156**\] [OpenGL Liner interpolation Animation OpenGL线性插值动画](http://114.215.140.250/post/156.htm)
+1. 2016-06-08 \[**160**\] [算法作业1 最大子序列和](http://114.215.140.250/post/160.htm)
+1. 2016-06-08 \[**162**\] [算法作业2 sqrtn路合并排序的算法实现](http://114.215.140.250/post/162.htm)
