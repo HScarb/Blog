@@ -1,0 +1,208 @@
+title: 福彩双色球预测 Apriori算法
+date: 2016-11-16 17:48:16
+modified: 2016-11-16 17:48:16
+author: Scarb
+postid: $POSTID
+slug: $SLUG
+nicename: apriori
+attachments: 145,146
+posttype: post
+poststatus: publish
+tags: python, alg
+category: gadget
+
+[TOC]
+
+# 1. 需求描述
+给定2013,2014,2015,2016的福彩双色球数据.
+输出:给出前区(红球)数据(6个号码)的预测至少一注(一条比如 2 5 13 14 26 33),后区(蓝球)那个号码不处理。
+设计一种预测算法，并实现。
+
+# 2. 预测方法
+利用Apriori算法，得出频繁五项集和频繁一项集的集合，将频繁一项集中支持度最高的球号与频繁五项集减去带有支持度最高的球号的子集进行拼接，并规定将支持度最高的频繁一项集放在每个事务的最前面。
+
+# 3. 代码编写
+## 3.1 Apriori算法
+### 3.1.1 算法思想
+Apriori算法是一种挖掘关联规则的频繁项集算法，其核心思想是通过候选集生成和情节的向下封闭检测两个阶段来挖掘频繁项集。
+1. 依据支持度找出所有频繁项集（频度）
+2. 依据置信度产生关联规则（强度）
+
+### 3.1.2 基本概念
+对于A->B
+1. 支持度：P(A ∩ B)，既有A又有B的概率
+2. 置信度：P(B|A)，在A发生的事件中同时发生B的概率 p(AB)/P(A)     例如购物篮分析：牛奶 ⇒ 面包
+    - 例子：[支持度：3%，置信度：40%]
+    - 支持度3%：意味着3%顾客同时购买牛奶和面包
+    - 置信度40%：意味着购买牛奶的顾客40%也购买面包
+3. 如果事件A中包含k个元素，那么称这个事件A为k项集事件A满足最小支持度阈值的事件称为频繁k项集。
+4. 同时满足最小支持度阈值和最小置信度阈值的规则称为强规则
+
+### 3.1.3 实现步骤
+Apriori算法是一种最有影响的挖掘布尔关联规则频繁项集的算法Apriori使用一种称作逐层搜索的迭代方法，“K-1项集”用于搜索“K项集”。
+
+首先，找出频繁“1项集”的集合，该集合记作L1。L1用于找频繁“2项集”的集合L2，而L2用于找L3。如此下去，直到不能找到“K项集”。找每个Lk都需要一次数据库扫描。
+
+核心思想是：连接步和剪枝步。连接步是自连接，原则是保证前k-2项相同，并按照字典顺序连接。剪枝步，是使任一频繁项集的所有非空子集也必须是频繁的。
+反之，如果某个候选的非空子集不是频繁的，那么该候选肯定不是频繁的，从而可以将其从CK中删除。
+
+### 3.1.4 实例图
+![apriori_examp][img1]
+
+### 3.1.5 伪代码
+~~~ java
+// 找出频繁 1 项集  
+     L1 =find_frequent_1-itemsets(D);   
+     For(k=2;Lk-1 !=null;k++){  
+// 产生候选，并剪枝  
+        Ck =apriori_gen(Lk-1 );   
+// 扫描 D 进行候选计数  
+        For each 事务t  in D{   
+            Ct =subset(Ck,t); // 得到 t 的子集  
+            For each 候选 c 属于 Ct  
+                c.count++;  
+        }  
+        //返回候选项集中不小于最小支持度的项集  
+        Lk ={c 属于 Ck | c.count>=min_sup}  
+    }  
+    Return L= 所有的频繁集；  
+第一步：连接（join）  
+Procedure apriori_gen (Lk-1 :frequent(k-1)-itemsets)  
+      For each 项集 l1 属于 Lk-1  
+         For each 项集 l2 属于 Lk-1  
+            If( (l1 [1]=l2 [1])&&( l1 [2]=l2 [2])&& ……&& (l1 [k-2]=l2 [k-2])&&(l1 [k-1]<l2 [k-1]) )   
+then{  
+                    c = l1 连接 l2    // 连接步：产生候选  
+                  //若k-1项集中已经存在子集c则进行剪枝  
+                   if has_infrequent_subset(c, Lk-1 ) then  
+                       delete c; // 剪枝步：删除非频繁候选  
+                   else add c to Ck;  
+                   }  
+          Return Ck;  
+第二步：剪枝（prune）   
+ Procedure has_infrequent_sub (c:candidate k-itemset; Lk-1 :frequent(k-1)-itemsets)  
+         For each (k-1)-subset s of c  
+            If s 不属于 Lk-1 then  
+               Return true;  
+        Return false;  
+~~~
+
+## 3.2 我的代码
+~~~ python
+# read lottery.txt
+import itertools
+from collections import defaultdict
+
+class Apriori(object):
+    def __init__(self, data, min_sup=2):
+        self.data = data
+        self.min_sup_val = min_sup
+
+    def apriori(self):
+        Lkm1 = self.find_frequent_1_itemsets()
+        L = Lkm1
+
+        while Lkm1 != []:
+            c_dic = {}
+            Ck = self.apriori_gen(Lkm1)
+            for datalist in self.data:
+                for item in Ck:
+                    if set(item) <= set(datalist):      # 如果datalist包含itemn，C[item]++
+                        if tuple(item) in c_dic:
+                            c_dic[tuple(item)] +=1
+                        else:
+                            c_dic[tuple(item)] = 1
+
+            Lk = []
+            for item in c_dic:
+                if c_dic[item] >= self.min_sup_val:
+                    Lk.append(list(item))
+
+            Lkm1 = Lk
+            L += Lk
+        return L
+
+    def find_frequent_1_itemsets(self):
+        """
+        查找频繁1项集
+        """
+        freq_cnt = defaultdict(int)         # 带默认值的dict
+        for list in self.data:
+            for item in list:
+                freq_cnt[item] += 1
+
+        freq_list = []
+        for item in freq_cnt:
+            if freq_cnt[item] >= self.min_sup_val:
+                freq_list.append([item])
+        return freq_list
+
+    def apriori_gen(self, Lkm1):
+        """
+        由L(k-1)生成C(k)
+        """
+        Ck = []
+        k = len(Lkm1[0]) + 1
+        for l1 in Lkm1:
+            for l2 in Lkm1:
+                flag = False
+                # 比较除了最后一项，如果不同，则跳出
+                for i in range(k - 2):
+                    if l1[i] != l2[i]:
+                        flag = True
+                        break
+                if flag: continue
+                # 当最后一项 l1 < l2 时，l1与l2最后一项合并
+                if l1[k - 2] < l2[k - 2]:
+                    c = l1 + [l2[k - 2]]
+                else:
+                    continue
+                # 将没有频繁项集的项排除
+                if self.has_infrequent_subset(c, Lkm1):
+                    continue
+                else:
+                    Ck.append(c)
+        return Ck
+
+    def has_infrequent_subset(self, Ck, Lkm1):
+        """
+        返回C(k)的某一项的所有(k-1)项集中是否有非频繁项集
+        """
+        k = len(Lkm1[0]) + 1
+        subsets = list(itertools.combinations(Ck, k - 1))
+        for item in subsets:
+            item = list(item)
+            if item not in Lkm1:
+                return True
+        return False
+
+if __name__ == '__main__':
+    filePath = 'ssq.TXT'
+    dataList = [line.strip().split('\t') for line in open(filePath)]
+    data = [data[2:8] for data in dataList[1:]]
+    t = Apriori(data, 2)
+    L = t.apriori()
+    print(L)
+~~~
+
+# 4. 结果
+## 4.1 运行结果
+![apriori][img2]
+
+## 4.2 预测结果
+- 14，11，16，2，26，4
+- 14，10，11，12，15，32
+- 14，10，15，20，23，31
+- 14，1，10，11，13，32
+- 14，13，16，22，25，27
+- 14，13，18，5，6，7
+- 14，17，22，3，32，33
+- 14，10，15，22，29，8
+- 14，10，12，2，30，4
+- 14，1，2，22，28，30
+- 14，13，2，20，22，3
+- 14，13，19，28，5，6
+- 14，18，22，32，33，6
+
+[img1]: http://115.28.48.229/wordpress/wp-content/uploads/2016/11/apriori_process-2.jpg
+[img2]: http://115.28.48.229/wordpress/wp-content/uploads/2016/11/apriori_result.png
