@@ -1,0 +1,180 @@
+<meta charset="UTF-8">
+<h1 id="k-k-nearestneighbor-classifier-cross-validation">K近邻分类器交叉验证 K-NearestNeighbor Classifier &amp; Cross validation<a class="headerlink" href="#k-k-nearestneighbor-classifier-cross-validation" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Scarb</li>
+</ul>
+<div class="toc">
+<ul>
+<li><a href="#k-k-nearestneighbor-classifier-cross-validation">K近邻分类器交叉验证 K-NearestNeighbor Classifier &amp; Cross validation</a><ul>
+<li><a href="#1">1. 要求描述</a></li>
+<li><a href="#2">2. 运行环境</a></li>
+<li><a href="#3">3. 解决思路</a></li>
+<li><a href="#4-k-knn">4. K近邻分类器 KNN</a><ul>
+<li><a href="#41-knn">4.1 KNN原理</a></li>
+<li><a href="#42">4.2 算法描述</a></li>
+<li><a href="#43-knn">4.3 KNN实现</a></li>
+</ul>
+</li>
+<li><a href="#5-cross-validation">5. 交叉验证 Cross validation</a><ul>
+<li><a href="#51">5.1 算法描述</a></li>
+<li><a href="#52">5.2 算法伪码</a></li>
+<li><a href="#53">5.3 算法实现</a></li>
+</ul>
+</li>
+<li><a href="#6">6. 运行结果</a></li>
+<li><a href="#reference">Reference:</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="1">1. 要求描述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>实现K近邻分类器</li>
+<li>应用于数据集，计算10倍交叉验证<code>10-fold cross-validation</code>的分类精度</li>
+<li>计算计算留一法交叉验证<code>Leave-One-Out cross-validation</code>的分类精度</li>
+</ol>
+<h2 id="2">2. 运行环境<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>python 3.5+</li>
+</ul>
+<p>所需python库：
+- numpy
+- scipy
+- xlrd
+- sklearn</p>
+<h2 id="3">3. 解决思路<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>将K近邻算法用做分类器，然后在交叉验证中使用K近邻分类器进行验证。</p>
+<p>十折交叉验证：</p>
+<ol>
+<li>每次取1/10的数据作为测试，其他用做训练。</li>
+<li>用KNN算法分别预测这些数据的类型</li>
+<li>将预测的类型与实际真实类型作对比，并算出正确率</li>
+<li>取另外1/10的数据，其他用做训练，循环2-4步骤</li>
+<li>将之前计算的正确率取平均值</li>
+</ol>
+<h2 id="4-k-knn">4. K近邻分类器 KNN<a class="headerlink" href="#4-k-knn" title="Permanent link">&para;</a></h2>
+<h3 id="41-knn">4.1 KNN原理<a class="headerlink" href="#41-knn" title="Permanent link">&para;</a></h3>
+<p><img alt="KNN_Origin" src="http://115.28.48.229/wordpress/wp-content/uploads/2016/11/KNN_Origin.png" />
+根据上图所示，有两类不同的样本数据，分别用蓝色的小正方形和红色的小三角形表示，而图正中间的那个绿色的圆所标示的数据则是待分类的数据。也就是说，现在， 我们不知道中间那个绿色的数据是从属于哪一类（蓝色小正方形or红色小三角形），下面，我们就要解决这个问题：给这个绿色的圆分类。</p>
+<p>我们常说，物以类聚，人以群分，判别一个人是一个什么样品质特征的人，常常可以从他or她身边的朋友入手，所谓观其友，而识其人。我们不是要判别上图中那个绿色的圆是属于哪一类数据么，好说，从它的邻居下手。但一次性看多少个邻居呢？从上图中，你还能看到：</p>
+<ul>
+<li>如果K=3，绿色圆点的最近的3个邻居是2个红色小三角形和1个蓝色小正方形，少数从属于多数，基于统计的方法，判定绿色的这个待分类点属于红色的三角形一类。</li>
+<li>如果K=5，绿色圆点的最近的5个邻居是2个红色三角形和3个蓝色的正方形，还是少数从属于多数，基于统计的方法，判定绿色的这个待分类点属于蓝色的正方形一类。</li>
+</ul>
+<p>于此我们看到，当无法判定当前待分类点是从属于已知分类中的哪一类时，我们可以依据统计学的理论看它所处的位置特征，衡量它周围邻居的权重，而把它归为(或分配)到权重更大的那一类。这就是K近邻算法的核心思想。</p>
+<p>KNN算法中，所选择的邻居都是已经正确分类的对象。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。</p>
+<h3 id="42">4.2 算法描述<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>算法伪码
+<img alt="KNN_Alg" src="http://115.28.48.229/wordpress/wp-content/uploads/2016/11/KNN_Alg.png" /></p>
+<h3 id="43-knn">4.3 KNN实现<a class="headerlink" href="#43-knn" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">KNN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">K</span>
+
+    <span class="k">def</span> <span class="nf">KnnClassify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">testItem</span><span class="p">,</span> <span class="n">trainX</span><span class="p">,</span> <span class="n">trainY</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        KNN-Classify, classify one item</span>
+<span class="sd">        :param testItem:   test point</span>
+<span class="sd">        :return:           the predict label of train</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="p">[</span><span class="n">N</span><span class="p">,</span><span class="n">M</span><span class="p">]</span><span class="o">=</span><span class="n">trainX</span><span class="o">.</span><span class="n">shape</span>                              <span class="c1"># N: data count, M: data dimension</span>
+
+    <span class="c1">#calculate the distance between testX and other training samples</span>
+        <span class="n">testX2</span> <span class="o">=</span> <span class="n">tile</span><span class="p">(</span><span class="n">testItem</span><span class="p">,</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">difference</span> <span class="o">=</span> <span class="n">tile</span><span class="p">(</span><span class="n">testItem</span><span class="p">,</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="n">trainX</span>         <span class="c1"># tile for array and repeat for matrix in Python, == repmat in Matlab</span>
+            <span class="c1"># tile: Construct an array by repeating A the number of times given by reps.</span>
+        <span class="n">difference</span> <span class="o">=</span> <span class="n">difference</span> <span class="o">**</span> <span class="mi">2</span>                    <span class="c1"># take pow(difference,2)</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">difference</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                    <span class="c1"># take the sum of difference from all dimensions</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">**</span> <span class="mf">0.5</span>
+        <span class="n">sortdiffidx</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+
+    <span class="c1"># find the k nearest neighbours</span>
+        <span class="n">vote</span> <span class="o">=</span> <span class="p">{}</span>                                       <span class="c1"># create the dictionary</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">K</span><span class="p">):</span>
+            <span class="n">ith_label</span> <span class="o">=</span> <span class="n">trainY</span><span class="p">[</span><span class="n">sortdiffidx</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">vote</span><span class="p">[</span><span class="n">ith_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">vote</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ith_label</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>   <span class="c1">#get(ith_label,0) : if dictionary &#39;vote&#39; exist key &#39;ith_label&#39;, return vote[ith_label]; else return 0</span>
+        <span class="n">sortedvote</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">vote</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="c1"># &#39;key = lambda x: x[1]&#39; can be substituted by operator.itemgetter(1)</span>
+        <span class="k">return</span> <span class="n">sortedvote</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">testX</span><span class="p">,</span> <span class="n">trainX</span><span class="p">,</span> <span class="n">trainY</span><span class="p">):</span>
+        <span class="n">predY</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">testX</span><span class="p">:</span>
+            <span class="n">predY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">KnnClassify</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">trainX</span><span class="p">,</span> <span class="n">trainY</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">predY</span>
+
+    <span class="k">def</span> <span class="nf">accuracy_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trueY</span><span class="p">,</span> <span class="n">predY</span><span class="p">):</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">trueY</span> <span class="o">==</span> <span class="n">predY</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+</pre></div>
+
+
+<p>实现了KNN分类器，用predict函数可以根据一组testX使用KNN算法返回一组预测type值
+用accuracy_score算法可以根据预测的type值与真实type值</p>
+<h2 id="5-cross-validation">5. 交叉验证 Cross validation<a class="headerlink" href="#5-cross-validation" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 算法描述<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。
+交叉验证有时也称为交叉比对，如：10折交叉比对</p>
+<p>K折交叉验证：初始采样分割成K个子样本，一个单独的子样本被保留作为验证模型的数据，其他K-1个样本用来训练。交叉验证重复K次，每个子样本验证一次，平均K次的结果或者使用其它结合方式，最终得到一个单一估测。这个方法的优势在于，同时重复运用随机产生的子样本进行训练和验证，每次的结果验证一次，10折交叉验证是最常用的。</p>
+<p>留一验证：正如名称所建议， 留一验证（LOOCV）意指只使用原本样本中的一项来当做验证资料， 而剩余的则留下来当做训练资料。 这个步骤一直持续到每个样本都被当做一次验证资料。 事实上，这等同于 K-fold 交叉验证是一样的，其中K为原本样本个数。 在某些情况下是存在有效率的演算法，如使用kernel regression 和Tikhonov regularization。</p>
+</blockquote>
+<h3 id="52">5.2 算法伪码<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nl">Step1:</span>  <span class="n">将学习样本空间</span> <span class="n">C</span> <span class="n">分为大小相等的</span> <span class="n">K</span> <span class="n">份</span>  
+<span class="nl">Step2:</span>  <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">to</span> <span class="n">K</span> <span class="err">：</span>
+            <span class="n">取第i份作为测试集</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">to</span> <span class="n">K</span><span class="o">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="o">:</span>
+                    <span class="n">将第j份加到训练集中</span><span class="err">，</span><span class="n">作为训练集的一部分</span>
+                <span class="n">end</span> <span class="k">if</span>
+            <span class="n">end</span> <span class="k">for</span>
+        <span class="n">end</span> <span class="k">for</span>
+<span class="nl">Step3:</span>  <span class="k">for</span> <span class="n">i</span> <span class="nf">in</span> <span class="o">(</span><span class="n">K</span><span class="o">-</span><span class="mi">1</span><span class="n">训练集</span><span class="o">)</span><span class="err">：</span>
+            <span class="n">训练第i个训练集</span><span class="err">，</span><span class="n">得到一个分类模型</span>
+            <span class="n">使用该模型在第N个数据集上测试</span><span class="err">，</span><span class="n">计算并保存模型评估指标</span>
+        <span class="n">end</span> <span class="k">for</span>
+<span class="nl">Step4:</span>  <span class="n">计算模型的平均性能</span>
+<span class="nl">Step5:</span>  <span class="n">用这K个模型在最终验证集的分类准确率平均值作为此K</span><span class="o">-</span><span class="n">CV下分类器的性能指标</span><span class="o">.</span>
+</pre></div>
+
+
+<h3 id="53">5.3 算法实现<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<p>利用sklearn库中带有的迭代器，将测试数据按照验证方式分好，使用KNN分类器进行精确度验证。</p>
+<div class="codehilite"><pre><span></span>    <span class="c1"># K-fold</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">KFold</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>    <span class="c1"># create iterator</span>
+
+    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">cv</span><span class="p">:</span>
+        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="c1"># generator predict list</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="c1"># calculate accuracy</span>
+        <span class="n">ACC</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">ACCs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ACC</span><span class="p">)</span>
+    <span class="n">ACC_mean</span> <span class="o">=</span> <span class="n">mean_fun</span><span class="p">(</span><span class="n">ACCs</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;10-fold cross validation accuracy: &#39;</span><span class="p">,</span> <span class="n">ACC_mean</span><span class="p">)</span>
+
+    <span class="c1"># Leave One Out</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">LeaveOneOut</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>      <span class="c1"># create iterator</span>
+
+    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">cv</span><span class="p">:</span>
+        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+        <span class="n">ACC</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">ACCs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ACC</span><span class="p">)</span>
+    <span class="n">ACC_mean</span> <span class="o">=</span> <span class="n">mean_fun</span><span class="p">(</span><span class="n">ACCs</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Leave-One-Out validation accuracy: &#39;</span><span class="p">,</span> <span class="n">ACC_mean</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="6">6. 运行结果<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<p>运行结果图片：
+<img alt="result" src="http://115.28.48.229/wordpress/wp-content/uploads/2016/11/KNN_Result.png" /></p>
+<p>10-fold cross validation accuracy:  0.45666666666666667</p>
+<p>Leave-One-Out validation accuracy:  0.5336477987421383</p>
+<h2 id="reference">Reference:<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
+<p>【1】<a href="http://www.csuldw.com/2015/05/21/2015-05-21-KNN/">机器学习算法-K最近邻从原理到实现</a></p>
+<p>【2】<a href="http://www.csuldw.com/2015/07/28/2015-07-28%20crossvalidation/">机器学习-Cross Validation交叉验证Python实现</a></p>
