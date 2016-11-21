@@ -208,6 +208,17 @@
 'description': '网络爬虫',
 'group': '0',
 'taxonomy': 'post_tag'
+},
+'datamining': {
+'name': 'datamining',
+'id': '26',
+'parent': '0',
+'count': 0,
+'slug': 'datamining',
+'taxonomy_id': '26',
+'description': 'datamining',
+'group': '0',
+'taxonomy': 'post_tag'
 }
 },
 'cachefile': 'I:\\WS-Blog\\_wpcmd.cache.py',
