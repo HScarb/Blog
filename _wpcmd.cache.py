@@ -1,5 +1,16 @@
 {
 'post_tag': {
+'linux': {
+'taxonomy_id': '29',
+'name': 'linux',
+'id': '29',
+'slug': 'linux',
+'parent': '0',
+'description': '',
+'group': '0',
+'count': 0,
+'taxonomy': 'post_tag'
+},
 'crawler': {
 'id': '16',
 'name': '爬虫',
