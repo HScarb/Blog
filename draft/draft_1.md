@@ -1,0 +1,118 @@
+title: Linux C语言编程 笔记
+date: 2016-12-12 11:15:48
+modified: 2016-12-12 11:15:48
+author: Scarb
+postid: $POSTID
+slug: $SLUG
+nicename: linuxc
+attachments: 161
+posttype: post
+poststatus: publish
+tags: linux
+category: note
+
+# Linux C语言编程 笔记
+
+* By Scarb
+* [imooc](http://www.imooc.com/learn/248)
+
+## 1. 多文件编译
+比如有如下两个c语言文件
+```C
+// hello.c
+#include<stdio.h>
+#include "max.c"
+
+int main()
+{
+     int a1 = 12;
+     int a2 = 34;
+     int maxNum = max(a1, a2);
+     printf("Max = %d.\n", maxNum);
+     return 0;
+}
+
+```
+```C
+// max.c
+int max(int a, int b)
+{
+     if(a > b)
+          return a;
+     else
+          reutnr b;
+}
+
+```
+`gcc max.c hello.c -o hello.out`
+可以编译出 `max.o`和`hello.out`
+
+`max.o`是编译器把`max.c`编译成的二进制机器码文件。
+`max.o`可重复利用，缩短编译时间。
+
+应把一些不常改动的模块事先编译成`*.o`，缩短编译时间
+`gcc max.o hello.c`
+
+`gcc -c max.c min.c`会编译出`max.o`和`min.o`
+选项 `-c` 用来告诉编译器编译源代码但不要执行链接，输出结果为对象文件。文件默认名与源码文件名相同，只是将其后缀变为 `.o`。
+
+## 2. 利用make进行编译
+`make -v`
+查看`make`的版本
+
+```Makefile
+Makefile
+hello.out: max.o min.o hello.c
+     gcc max.o min.o hello.c -o hello.out
+max.o: max.c
+     gcc -c max.c
+min.o: min.c
+     gcc -c min.c
+```
+
+make:层层递归找所需要的文件
+第二行前面为tab
+
+## 3. main函数 返回值和参数
+### 3.1 main函数的返回值
+main函数的返回值：表示程序执行是否出错。
+如果返回值为0则不出错，不是0则程序出错
+可用`echo $?`查看程序执行是否出错
+
+可用`&&`连接两个命令，如果前面一个出错(不返回0)就不执行后面一个。
+
+### 3.2 main函数的两个参数
+main函数的两个参数
+int argv char * argc[]
+* argv: 默认为1，表示执行命令的参数个数，如果有参数，那会变成(1+参数个数)
+* argc: 参数的字符串，如argc[0]就是第一个参数转换成字符串的值，如"-a"
+![main_arg][img1]
+
+## 4. 输入输出流
+### 4.1 标准输入输出流
+
+- `stdin`:标准输入流，键盘输入
+- `stdout`:标准输出流，终端输出
+- `stderr`:标准错误流，错误输出
+- `scanf("")`就是`fscanf(stdin, "")`
+- `printf("")`就是`fprintf(stdout, "")`
+- 标准错误流:`fprintf(stderr, ""); return 1;`返回不能等于0的错误号
+
+### 4.2 重定向
+
+- `>>` 输出重定向,并加在末尾
+- `>` 输出重定向，并覆盖文件
+- `<` 输入重定向
+
+`./a.out << a.txt` 将`a.out`输出的内容输出到文件`a.txt`
+`./a.out 1>t.txt 2>f.txt`
+将标准输出流的输出保存到`t.txt`
+将标准错误流的输出保存到`f.txt`
+
+## 5. 管道
+
+将前一个程序的输出作为后一个程序的输入
+如`ls | grep ab`中`|`就表示使用管道，`ls`和`grep`是两个程序
+
+
+[img1]: http://115.28.48.229/wordpress/wp-content/uploads/2016/12/main_arg.png
