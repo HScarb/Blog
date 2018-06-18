@@ -54,7 +54,7 @@
 </ol>
 <h2 id="4-k-knn">4. K近邻分类器 KNN<a class="headerlink" href="#4-k-knn" title="Permanent link">&para;</a></h2>
 <h3 id="41-knn">4.1 KNN原理<a class="headerlink" href="#41-knn" title="Permanent link">&para;</a></h3>
-<p><img alt="KNN_Origin" src="http://115.28.48.229/wordpress/wp-content/uploads/2016/11/KNN_Origin.png" />
+<p><img alt="KNN_Origin" src="http://47.106.131.90/blog/uploads/2016/11/KNN_Origin.png" />
 根据上图所示，有两类不同的样本数据，分别用蓝色的小正方形和红色的小三角形表示，而图正中间的那个绿色的圆所标示的数据则是待分类的数据。也就是说，现在， 我们不知道中间那个绿色的数据是从属于哪一类（蓝色小正方形or红色小三角形），下面，我们就要解决这个问题：给这个绿色的圆分类。</p>
 <p>我们常说，物以类聚，人以群分，判别一个人是一个什么样品质特征的人，常常可以从他or她身边的朋友入手，所谓观其友，而识其人。我们不是要判别上图中那个绿色的圆是属于哪一类数据么，好说，从它的邻居下手。但一次性看多少个邻居呢？从上图中，你还能看到：</p>
 <ul>
@@ -65,7 +65,7 @@
 <p>KNN算法中，所选择的邻居都是已经正确分类的对象。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。</p>
 <h3 id="42">4.2 算法描述<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
 <p>算法伪码
-<img alt="KNN_Alg" src="http://115.28.48.229/wordpress/wp-content/uploads/2016/11/KNN_Alg.png" /></p>
+<img alt="KNN_Alg" src="http://47.106.131.90/blog/uploads/2016/11/KNN_Alg.png" /></p>
 <h3 id="43-knn">4.3 KNN实现<a class="headerlink" href="#43-knn" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">KNN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
@@ -172,7 +172,7 @@
 
 <h2 id="6">6. 运行结果<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
 <p>运行结果图片：
-<img alt="result" src="http://115.28.48.229/wordpress/wp-content/uploads/2016/11/KNN_Result.png" /></p>
+<img alt="result" src="http://47.106.131.90/blog/uploads/2016/11/KNN_Result.png" /></p>
 <p>10-fold cross validation accuracy:  0.45666666666666667</p>
 <p>Leave-One-Out validation accuracy:  0.5336477987421383</p>
 <h2 id="reference">Reference:<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
