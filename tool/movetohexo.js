@@ -99,7 +99,12 @@ function updateFrontMatter (lines, filename) {
     line = lines[j]
     var param = line.split(': ')
     var key = param[0].toLowerCase().trim()
-    var value = param[1].trim()
+    try{
+      var value = param[1].trim()
+    }
+    catch(e){
+      console.log("ERROR: " + e);
+    }
     // nickname 不是英文的情况，删除
     if (key === 'nicename') {
       if (noValueRe.test(value)) {
